@@ -1,0 +1,15 @@
+Index: mplayer/libmpcodecs/vf_delogo.c
+===================================================================
+--- mplayer.orig/libmpcodecs/vf_delogo.c	2012-07-23 01:28:05.258621800 +0200
++++ mplayer/libmpcodecs/vf_delogo.c	2012-07-23 01:33:34.586066600 +0200
+@@ -38,6 +38,10 @@
+ #include "m_option.h"
+ #include "m_struct.h"
+ 
++#ifndef LINE_MAX
++#define LINE_MAX 2048
++#endif
++
+ //===========================================================================//
+ 
+ static struct vf_priv_s {

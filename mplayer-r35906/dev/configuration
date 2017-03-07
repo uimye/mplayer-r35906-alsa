@@ -1,0 +1,22 @@
+  Enabled optional drivers:
+    Input: dvdnav(internal) ftp librtmp cddb cdda libdvdcss(internal) dvdread(internal) bluray vcd networking
+    Codecs: libvpx x264 xvid libopencore_amrwb libopencore_amrnb ffmpeg(internal) qtx real win32 libopus faad2 libdca liba52 mpg123 libtheora libgsm speex libvorbis libmad liblzo
+    Audio output: dsound win32 sdl mpegpes(file)
+    Video output: directx direct3d matrixview opengl sdl pnm jpeg mng mpegpes(file) caca yuv4mpeg md5sum tga
+
+  Disabled optional drivers:
+    Input: vstream pvr radio tv-v4l2 tv-v4l1 tv-dshow tv live555 nemesi dvb smb
+    Codecs: libschroedinger libdirac crystalhd libdv xanim ilbc faac musepack libmpeg2 toolame twolame gif OpenJPEG
+    Audio output: sun alsa openal jack pulse nas esd arts oss v4l2 ivtv dxr2
+    Video output: zr zr2 v4l2 ivtv dxr3 dxr2 vesa gif89a fbdev svga aa ggi xvidix winvidix cvidix 3dfx xmga dga vdpau xvmc xv x11 directfb dfbmga bl xvr100 tdfx_vid wii s3fb tdfxfb mga
+
+
+SVN Revisions:
+----------------------
+MPlayer:       35906
+
+Git Revisions:
+----------------------
+FFmpeg:        086566a
+x264:          bc13772
+libass:        340ff8f

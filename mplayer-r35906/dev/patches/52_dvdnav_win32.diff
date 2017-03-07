@@ -1,0 +1,76 @@
+Index: mplayer/libdvdnav/remap.c
+===================================================================
+--- mplayer.orig/libdvdnav/remap.c	2012-07-23 01:28:22.050622300 +0200
++++ mplayer/libdvdnav/remap.c	2012-07-23 01:33:37.494232900 +0200
+@@ -199,12 +199,28 @@
+ 
+     memset(&tmp, 0, sizeof(tmp));
+     /* Build the map filename */
++#ifdef __MINGW32__
++    {
++        char exedir[MAX_PATH + 1];
++        if (GetModuleFileNameA(NULL, exedir, MAX_PATH) && (home = strrchr(exedir, '\\')))
++        {
++            *home = 0;
++            snprintf(fname, sizeof(fname) - 1, "%s\\dvdnav\\%s.map", exedir, title);
++        }
++        else
++        {
++            fprintf(MSG_OUT, "libdvdnav: Unable to find executable directory\n" );
++            return NULL;
++        }
++    }
++#else
+     home = getenv("HOME");
+     if(!home) {
+-        fprintf(MSG_OUT, "libdvdnav: Unable to find home directory" );
++        fprintf(MSG_OUT, "libdvdnav: Unable to find home directory\n" );
+         return NULL;
+     }
+     snprintf(fname, sizeof(fname), "%s/.dvdnav/%s.map", home, title);
++#endif
+ 
+     /* Open the map file */
+     fp = fopen( fname, "r");
+Index: mplayer/libdvdread4/dvd_reader.c
+===================================================================
+--- mplayer.orig/libdvdread4/dvd_reader.c	2012-07-23 01:28:19.298622200 +0200
++++ mplayer/libdvdread4/dvd_reader.c	2012-07-23 01:33:37.510233800 +0200
+@@ -182,14 +182,14 @@
+     start = UDFFindFile( dvd, filename, &len );
+     if( start != 0 && len != 0 ) {
+       /* Perform CSS key cracking for this title. */
+-      fprintf( stderr, "libdvdread: Get key for %s at 0x%08x\n",
+-               filename, start );
++      //fprintf( stderr, "libdvdread: Get key for %s at 0x%08x\n",
++      //         filename, start );
+       if( dvdinput_title( dvd->dev, (int)start ) < 0 ) {
+         fprintf( stderr, "libdvdread: Error cracking CSS key for %s (0x%08x)\n", filename, start);
+       }
+       gettimeofday( &t_e, NULL );
+-      fprintf( stderr, "libdvdread: Elapsed time %ld\n",
+-               (long int) t_e.tv_sec - t_s.tv_sec );
++      //fprintf( stderr, "libdvdread: Elapsed time %ld\n",
++      //         (long int) t_e.tv_sec - t_s.tv_sec );
+     }
+ 
+     if( title == 0 ) continue;
+@@ -200,14 +200,14 @@
+     if( start == 0 || len == 0 ) break;
+ 
+     /* Perform CSS key cracking for this title. */
+-    fprintf( stderr, "libdvdread: Get key for %s at 0x%08x\n",
+-             filename, start );
++    //fprintf( stderr, "libdvdread: Get key for %s at 0x%08x\n",
++    //         filename, start );
+     if( dvdinput_title( dvd->dev, (int)start ) < 0 ) {
+       fprintf( stderr, "libdvdread: Error cracking CSS key for %s (0x%08x)!!\n", filename, start);
+     }
+     gettimeofday( &t_e, NULL );
+-    fprintf( stderr, "libdvdread: Elapsed time %ld\n",
+-             (long int) t_e.tv_sec - t_s.tv_sec );
++    //fprintf( stderr, "libdvdread: Elapsed time %ld\n",
++    //         (long int) t_e.tv_sec - t_s.tv_sec );
+   }
+   title--;
+ 

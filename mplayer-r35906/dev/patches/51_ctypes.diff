@@ -1,0 +1,234 @@
+Index: mplayer/libmpdemux/mf.c
+===================================================================
+--- mplayer.orig/libmpdemux/mf.c	2012-07-23 01:28:16.000000000 +0200
++++ mplayer/libmpdemux/mf.c	2012-07-23 01:33:44.663643000 +0200
+@@ -68,7 +68,7 @@
+      while ( fgets( fname,PATH_MAX,lst_f ) )
+       {
+        /* remove spaces from end of fname */
+-       char *t=fname + strlen( fname ) - 1;
++       unsigned char *t=fname + strlen( fname ) - 1;
+        while ( t > fname && isspace( *t ) ) *(t--)=0;
+        if ( stat( fname,&fs ) )
+         {
+Index: mplayer/libvo/vo_fbdev.c
+===================================================================
+--- mplayer.orig/libvo/vo_fbdev.c	2012-07-23 01:28:08.000000000 +0200
++++ mplayer/libvo/vo_fbdev.c	2012-07-23 01:33:44.679643900 +0200
+@@ -100,8 +100,8 @@
+ 
+ static FILE *fp;
+ static int line_num = 0;
+-static char *line;
+-static char *token[MAX_NR_TOKEN];
++static unsigned char *line;
++static unsigned char *token[MAX_NR_TOKEN];
+ 
+ static int get_token(int num)
+ {
+Index: mplayer/parser-cfg.c
+===================================================================
+--- mplayer.orig/parser-cfg.c	2012-07-23 01:28:08.000000000 +0200
++++ mplayer/parser-cfg.c	2012-07-23 01:33:44.686644300 +0200
+@@ -60,10 +60,10 @@
+ #define MAX_OPT_LEN	1000
+ #define MAX_PARAM_LEN	1500
+ 	FILE *fp = NULL;
+-	char *line = NULL;
+-	char opt[MAX_OPT_LEN + 1];
+-	char param[MAX_PARAM_LEN + 1];
+-	char c;		/* for the "" and '' check */
++	unsigned char *line = NULL;
++	unsigned char opt[MAX_OPT_LEN + 1];
++	unsigned char param[MAX_PARAM_LEN + 1];
++	unsigned char c;		/* for the "" and '' check */
+ 	int tmp;
+ 	int line_num = 0;
+ 	int line_pos;	/* line pos */
+Index: mplayer/stream/stream_dvd.c
+===================================================================
+--- mplayer.orig/stream/stream_dvd.c	2012-07-23 01:28:05.000000000 +0200
++++ mplayer/stream/stream_dvd.c	2012-07-23 01:33:44.703645300 +0200
+@@ -84,8 +84,8 @@
+   stream_opts_fields
+ };
+ 
+-int dvd_parse_chapter_range(const m_option_t *conf, const char *range) {
+-  const char *s;
++int dvd_parse_chapter_range(const m_option_t *conf, const unsigned char *range) {
++  const unsigned char *s;
+   char *t;
+   if (!range)
+     return M_OPT_MISSING_PARAM;
+Index: mplayer/stream/stream_dvd.h
+===================================================================
+--- mplayer.orig/stream/stream_dvd.h	2012-07-23 01:28:05.000000000 +0200
++++ mplayer/stream/stream_dvd.h	2012-07-23 01:33:44.712645800 +0200
+@@ -60,6 +60,6 @@
+ int dvd_aid_from_lang(stream_t *stream, const unsigned char* lang);
+ int dvd_sid_from_lang(stream_t *stream, const unsigned char* lang);
+ int dvd_chapter_from_cell(dvd_priv_t *dvd,int title,int cell);
+-int dvd_parse_chapter_range(const m_option_t *conf, const char *range);
++int dvd_parse_chapter_range(const m_option_t *conf, const unsigned char *range);
+ 
+ #endif /* MPLAYER_STREAM_DVD_H */
+Index: mplayer/stream/tv.c
+===================================================================
+--- mplayer.orig/stream/tv.c	2012-07-23 01:28:05.000000000 +0200
++++ mplayer/stream/tv.c	2012-07-23 01:33:44.723646400 +0200
+@@ -571,7 +571,7 @@
+ 	int channel = 0;
+ 	if (tvh->tv_param->channel)
+ 	 {
+-	   if (isdigit(*tvh->tv_param->channel))
++	   if (isdigit((unsigned char) *tvh->tv_param->channel))
+ 		/* if tvh->tv_param->channel begins with a digit interpret it as a number */
+ 		channel = atoi(tvh->tv_param->channel);
+ 	   else
+Index: mplayer/sub/subreader.c
+===================================================================
+--- mplayer.orig/sub/subreader.c	2012-07-23 01:28:07.000000000 +0200
++++ mplayer/sub/subreader.c	2012-07-23 01:33:44.766648900 +0200
+@@ -87,12 +87,12 @@
+ unsigned long previous_sub_end;
+ #endif
+ 
+-static int eol(char p) {
++static int eol(unsigned char p) {
+ 	return p=='\r' || p=='\n' || p=='\0';
+ }
+ 
+ /* Remove leading and trailing space */
+-static void trail_space(char *s) {
++static void trail_space(unsigned char *s) {
+ 	int i = 0;
+ 	while (isspace(s[i])) ++i;
+ 	if (i) strcpy(s, s + i);
+@@ -736,8 +736,8 @@
+  * by set, based on code by szabi (dunnowhat sub format ;-)
+  */
+ static subtitle *sub_read_line_pjs(stream_t *st,subtitle *current, int utf16) {
+-    char line[LINE_LEN+1];
+-    char text[LINE_LEN+1], *s, *d;
++    unsigned char line[LINE_LEN+1];
++    unsigned char text[LINE_LEN+1], *s, *d;
+ 
+     if (!stream_read_line (st, line, LINE_LEN, utf16))
+ 	return NULL;
+@@ -777,7 +777,7 @@
+ 	char line[LINE_LEN+1];
+ 	float a,b;
+ 	int num=0;
+-	char *p, *q;
++	unsigned char *p, *q;
+ 
+ 	do
+ 	{
+@@ -915,7 +915,7 @@
+ 
+ static subtitle *sub_read_line_jacosub(stream_t* st, subtitle * current, int utf16)
+ {
+-    char line1[LINE_LEN], line2[LINE_LEN], directive[LINE_LEN], *p, *q;
++    unsigned char line1[LINE_LEN], line2[LINE_LEN], directive[LINE_LEN], *p, *q;
+     unsigned a1, a2, a3, a4, b1, b2, b3, b4, comment = 0;
+     static unsigned jacoTimeres = 30;
+     static int jacoShift = 0;
+@@ -1827,7 +1827,7 @@
+ #endif
+ 
+ 
+-static void strcpy_trim(char *d, const char *s)
++static void strcpy_trim(unsigned char *d, const unsigned char *s)
+ {
+     // skip leading whitespace
+     while (*s && isspace(*s)) {
+@@ -1882,7 +1882,7 @@
+    }
+ }
+ 
+-static int whiteonly(const char *s)
++static int whiteonly(const unsigned char *s)
+ {
+     while (*s) {
+ 	if (!isspace(*s)) return 0;
+Index: mplayer/sub/vobsub.c
+===================================================================
+--- mplayer.orig/sub/vobsub.c	2012-07-23 01:28:07.000000000 +0200
++++ mplayer/sub/vobsub.c	2012-07-23 01:33:44.782649800 +0200
+@@ -232,7 +232,7 @@
+ 
+ /**********************************************************************/
+ 
+-static ssize_t vobsub_getline(char **lineptr, size_t *n, rar_stream_t *stream)
++static ssize_t vobsub_getline(unsigned char **lineptr, size_t *n, rar_stream_t *stream)
+ {
+     size_t res = 0;
+     int c;
+@@ -241,7 +241,7 @@
+         if (*lineptr)
+             *n = 4096;
+     } else if (*n == 0) {
+-        char *tmp = realloc(*lineptr, 4096);
++        unsigned char *tmp = realloc(*lineptr, 4096);
+         if (tmp) {
+             *lineptr = tmp;
+             *n = 4096;
+@@ -665,11 +665,11 @@
+     return -1;
+ }
+ 
+-static int vobsub_parse_id(vobsub_t *vob, const char *line)
++static int vobsub_parse_id(vobsub_t *vob, const unsigned char *line)
+ {
+     // id: xx, index: n
+     size_t idlen;
+-    const char *p, *q;
++    const unsigned char *p, *q;
+     p  = line;
+     while (isspace(*p))
+         ++p;
+@@ -692,7 +692,7 @@
+     return vobsub_add_id(vob, p, idlen, atoi(q));
+ }
+ 
+-static int vobsub_parse_timestamp(vobsub_t *vob, const char *line)
++static int vobsub_parse_timestamp(vobsub_t *vob, const unsigned char *line)
+ {
+     int h, m, s, ms;
+     off_t filepos;
+@@ -702,7 +702,7 @@
+     return vobsub_add_timestamp(vob, filepos, vob->delay + ms + 1000 * (s + 60 * (m + 60 * h)));
+ }
+ 
+-static int vobsub_parse_origin(vobsub_t *vob, const char *line)
++static int vobsub_parse_origin(vobsub_t *vob, const unsigned char *line)
+ {
+     // org: X,Y
+     unsigned x, y;
+@@ -742,7 +742,7 @@
+     return y << 16 | u << 8 | v;
+ }
+ 
+-static int vobsub_parse_delay(vobsub_t *vob, const char *line)
++static int vobsub_parse_delay(vobsub_t *vob, const unsigned char *line)
+ {
+     int h, m, s, ms;
+     int forward = 1;
+@@ -766,7 +766,7 @@
+     return 0;
+ }
+ 
+-static int vobsub_set_lang(const char *line)
++static int vobsub_set_lang(const unsigned char *line)
+ {
+     if (vobsub_id == -1)
+         vobsub_id = atoi(line + 8);
+@@ -780,7 +780,7 @@
+     ssize_t line_size;
+     int res = -1;
+         size_t line_reserve = 0;
+-        char *line = NULL;
++        unsigned char *line = NULL;
+     do {
+         line_size = vobsub_getline(&line, &line_reserve, fd);
+         if (line_size < 0 || line_size > 1000000 ||

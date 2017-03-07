@@ -1,0 +1,12 @@
+Index: mplayer/input/input.c
+===================================================================
+--- mplayer.orig/input/input.c	2012-07-23 01:28:05.842621800 +0200
++++ mplayer/input/input.c	2012-07-23 01:33:31.048864300 +0200
+@@ -1097,6 +1097,7 @@
+   if(cmd == NULL) {
+     char key_name[100];
+     int i;
++    if (!keys[0]) return NULL;
+     av_strlcpy(key_name, mp_input_get_key_name(keys[0]), sizeof(key_name));
+     for (i = 1; i < n; i++) {
+       av_strlcat(key_name, "-", sizeof(key_name));

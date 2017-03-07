@@ -1,0 +1,735 @@
+Index: mplayer/Makefile
+===================================================================
+--- mplayer/Makefile	(revision 35906)
++++ mplayer/Makefile	(working copy)
+@@ -674,6 +674,8 @@
+ OBJS_MPLAYER   += $(addsuffix .o, $(basename $(SRCS_MPLAYER)))
+ OBJS_MPLAYER-$(PE_EXECUTABLE) += osdep/mplayer-rc.o
+ OBJS_MPLAYER   += $(OBJS_MPLAYER-yes)
++OBJS_MENCODER-$(PE_EXECUTABLE) += osdep/mencoder-rc.o
++OBJS_MENCODER += $(OBJS_MENCODER-yes)
+ 
+ MENCODER_DEPS = $(OBJS_MENCODER) $(OBJS_COMMON) $(COMMON_LIBS)
+ MPLAYER_DEPS  = $(OBJS_MPLAYER)  $(OBJS_COMMON) $(COMMON_LIBS)
+@@ -778,6 +780,9 @@
+ check_checksums: $(MPLAYER_DEPS) $(MENCODER_DEPS) mplayer$(EXESUF) mencoder$(EXESUF)
+ 	md5sum -c checksums
+ 
++osdep/mencoder-rc.o: osdep/mplayer.rc version.h
++	$(WINDRES) -D IN_MENCODER -o $@ $<
++
+ # ./configure must be rerun if it changed
+ config.mak: configure
+ 	@echo "############################################################"
+Index: mplayer/configure
+===================================================================
+--- mplayer/configure	(revision 35906)
++++ mplayer/configure	(working copy)
+@@ -1925,8 +1925,8 @@
+   def_av_fast_unaligned='#define AV_HAVE_FAST_UNALIGNED 1'
+   def_local_aligned_8='#define HAVE_LOCAL_ALIGNED_8 1'
+   def_local_aligned_16='#define HAVE_LOCAL_ALIGNED_16 1'
+-  iproc=486
+-  proc=i486
++  iproc=686
++  proc=i686
+ 
+ 
+   if test "$_runtime_cpudetection" = no ; then
+@@ -2127,7 +2127,7 @@
+   else # if test "$_runtime_cpudetection" = no
+     _mcpu="$cpuopt=generic"
+     # at least i486 required, for bswap instruction
+-    _march="-march=i486"
++    _march="-march=i686"
+     cflag_check $_mcpu || _mcpu="$cpuopt=i686"
+     cflag_check $_mcpu || _mcpu=""
+     cflag_check $_march $_mcpu || _march=""
+@@ -3616,7 +3616,6 @@
+   def_memalign='#define HAVE_MEMALIGN 1'
+ else
+   def_memalign='#define HAVE_MEMALIGN 0'
+-  def_map_memalign='#define memalign(a, b) malloc(b)'
+   darwin || def_memalign_hack='#define CONFIG_MEMALIGN_HACK 1'
+ fi
+ echores "$_memalign"
+@@ -6217,9 +6216,9 @@
+   return 0;
+ }
+ EOF
+-        if cc_check -lass ; then
++        if cc_check -lass -lenca ; then
+             res_comment="external"
+-            extra_ldflags="$extra_ldflags -lass"
++            extra_ldflags="$extra_ldflags -lass $($_freetypeconfig --libs)"
+         elif test "$ass_internal" = auto ; then
+             ass_internal=yes
+         else
+@@ -8621,7 +8620,6 @@
+ $def_gettimeofday
+ $def_glob
+ $def_langinfo
+-$def_map_memalign
+ $def_memalign
+ $def_nanosleep
+ $def_posix_select
+Index: mplayer/input/input.c
+===================================================================
+--- mplayer/input/input.c	(revision 35906)
++++ mplayer/input/input.c	(working copy)
+@@ -217,6 +217,33 @@
+ /// If you add some new keys, you also need to add them here
+ 
+ static const mp_key_name_t key_names[] = {
++
++	{ CTRL_A,     "CTRL_A" },
++	{ CTRL_B,     "CTRL_B" },
++	{ CTRL_C,     "CTRL_C" },
++	{ CTRL_D,     "CTRL_D" },
++	{ CTRL_E,     "CTRL_E" },
++	{ CTRL_F,     "CTRL_F" },
++	{ CTRL_G,     "CTRL_G" },
++	{ CTRL_J,     "CTRL_J" },
++	{ CTRL_K,     "CTRL_K" },
++	{ CTRL_N,     "CTRL_N" },
++	{ CTRL_O,     "CTRL_O" },
++	{ CTRL_P,     "CTRL_P" },
++	{ CTRL_Q,     "CTRL_Q" },
++	{ CTRL_L,     "CTRL_L" },
++	{ CTRL_V,     "CTRL_V" },
++	{ CTRL_W,     "CTRL_W" },
++	{ CTRL_R,     "CTRL_R" },
++	{ CTRL_S,     "CTRL_S" },
++	{ CTRL_Z,     "CTRL_Z" },
++	{ CTRL_SO,    "CTRL_[" },
++	{ CTRL_BSL,   "CTRL_\\"},
++	{ CTRL_SC,    "CTRL_]" },
++	{ CTRL_T,     "CTRL_T" },
++	{ CTRL_U,     "CTRL_U" },
++	{ CTRL_Y,     "CTRL_Y" },
++
+   { ' ', "SPACE" },
+   { '#', "SHARP" },
+   { KEY_ENTER, "ENTER" },
+@@ -1097,6 +1124,7 @@
+   if(cmd == NULL) {
+     char key_name[100];
+     int i;
++    if (!keys[0]) return NULL;
+     av_strlcpy(key_name, mp_input_get_key_name(keys[0]), sizeof(key_name));
+     for (i = 1; i < n; i++) {
+       av_strlcat(key_name, "-", sizeof(key_name));
+Index: mplayer/libdvdcss/libdvdcss.c
+===================================================================
+--- mplayer/libdvdcss/libdvdcss.c	(revision 35906)
++++ mplayer/libdvdcss/libdvdcss.c	(working copy)
+@@ -238,7 +238,7 @@
+      */
+     if( psz_cache == NULL || psz_cache[0] == '\0' )
+     {
+-#ifdef HAVE_DIRECT_H
++#ifdef HAVE_DIRECT_H_NC
+         typedef HRESULT( WINAPI *SHGETFOLDERPATH )
+                        ( HWND, int, HANDLE, DWORD, LPTSTR );
+ 
+Index: mplayer/libmpdemux/mf.c
+===================================================================
+--- mplayer/libmpdemux/mf.c	(revision 35906)
++++ mplayer/libmpdemux/mf.c	(working copy)
+@@ -68,7 +68,7 @@
+      while ( fgets( fname,PATH_MAX,lst_f ) )
+       {
+        /* remove spaces from end of fname */
+-       char *t=fname + strlen( fname ) - 1;
++       unsigned char *t=fname + strlen( fname ) - 1;
+        while ( t > fname && isspace( *t ) ) *(t--)=0;
+        if ( stat( fname,&fs ) )
+         {
+Index: mplayer/libmpdemux/video.c
+===================================================================
+--- mplayer/libmpdemux/video.c	(revision 35906)
++++ mplayer/libmpdemux/video.c	(working copy)
+@@ -21,9 +21,6 @@
+ #include "config.h"
+ 
+ #include <stdio.h>
+-#if HAVE_MALLOC_H
+-#include <malloc.h>
+-#endif
+ #include <stdlib.h>
+ #include <string.h>
+ #include <unistd.h>
+@@ -130,7 +127,7 @@
+    }
+    mp_msg(MSGT_DECVIDEO,MSGL_V,"OK!\n");
+    if(!videobuffer) {
+-     videobuffer = memalign(8, VIDEOBUFFER_SIZE + MP_INPUT_BUFFER_PADDING_SIZE);
++     videobuffer = av_malloc(VIDEOBUFFER_SIZE + MP_INPUT_BUFFER_PADDING_SIZE);
+      if (videobuffer) memset(videobuffer+VIDEOBUFFER_SIZE, 0, MP_INPUT_BUFFER_PADDING_SIZE);
+      else {
+        mp_msg(MSGT_DECVIDEO,MSGL_ERR,MSGTR_ShMemAllocFail);
+@@ -225,7 +222,7 @@
+    }
+    mp_msg(MSGT_DECVIDEO,MSGL_V,"OK!\n");
+    if(!videobuffer) {
+-     videobuffer = memalign(8, VIDEOBUFFER_SIZE + MP_INPUT_BUFFER_PADDING_SIZE);
++     videobuffer = av_malloc(VIDEOBUFFER_SIZE + MP_INPUT_BUFFER_PADDING_SIZE);
+      if (videobuffer) memset(videobuffer+VIDEOBUFFER_SIZE, 0, MP_INPUT_BUFFER_PADDING_SIZE);
+      else {
+        mp_msg(MSGT_DECVIDEO,MSGL_ERR,MSGTR_ShMemAllocFail);
+@@ -290,7 +287,7 @@
+    mp_msg(MSGT_DECVIDEO,MSGL_V,"OK!\n");
+    // ========= Read & process sequence header & extension ============
+    if(!videobuffer) {
+-     videobuffer = memalign(8, VIDEOBUFFER_SIZE + MP_INPUT_BUFFER_PADDING_SIZE);
++     videobuffer = av_malloc(VIDEOBUFFER_SIZE + MP_INPUT_BUFFER_PADDING_SIZE);
+      if (videobuffer) memset(videobuffer+VIDEOBUFFER_SIZE, 0, MP_INPUT_BUFFER_PADDING_SIZE);
+      else {
+        mp_msg(MSGT_DECVIDEO,MSGL_ERR,MSGTR_ShMemAllocFail);
+@@ -358,7 +355,7 @@
+    }
+    mp_msg(MSGT_DECVIDEO,MSGL_INFO,"found\n");
+    if(!videobuffer) {
+-     videobuffer = memalign(8, VIDEOBUFFER_SIZE + MP_INPUT_BUFFER_PADDING_SIZE);
++     videobuffer = av_malloc(VIDEOBUFFER_SIZE + MP_INPUT_BUFFER_PADDING_SIZE);
+      if (videobuffer) memset(videobuffer+VIDEOBUFFER_SIZE, 0, MP_INPUT_BUFFER_PADDING_SIZE);
+      else {
+        mp_msg(MSGT_DECVIDEO,MSGL_ERR,MSGTR_ShMemAllocFail);
+Index: mplayer/libvo/vo_fbdev.c
+===================================================================
+--- mplayer/libvo/vo_fbdev.c	(revision 35906)
++++ mplayer/libvo/vo_fbdev.c	(working copy)
+@@ -100,8 +100,8 @@
+ 
+ static FILE *fp;
+ static int line_num = 0;
+-static char *line;
+-static char *token[MAX_NR_TOKEN];
++static unsigned char *line;
++static unsigned char *token[MAX_NR_TOKEN];
+ 
+ static int get_token(int num)
+ {
+Index: mplayer/libvo/vo_vesa.c
+===================================================================
+--- mplayer/libvo/vo_vesa.c	(revision 35906)
++++ mplayer/libvo/vo_vesa.c	(working copy)
+@@ -30,9 +30,6 @@
+ #include "help_mp.h"
+ #include "gtf.h"
+ #include <stdio.h>
+-#if HAVE_MALLOC_H
+-#include <malloc.h>
+-#endif
+ #include <stdlib.h>
+ #include <string.h>
+ #include <stddef.h>
+@@ -161,7 +158,7 @@
+   if(init_mode) if((err=vbeSetMode(init_mode,NULL)) != VBE_OK) PRINT_VBE_ERR("vbeSetMode",err);
+   init_mode=0;
+   if(HAS_DGA()) vbeUnmapVideoBuffer((unsigned long)win.ptr,win.high);
+-  if(dga_buffer && !HAS_DGA()) free(dga_buffer);
++  if(dga_buffer && !HAS_DGA()) av_free(dga_buffer);
+   vbeDestroy();
+   if(sws) sws_freeContext(sws);
+   sws=NULL;
+@@ -899,7 +896,7 @@
+ #endif
+ 		  )
+ 		  {
+-		    if(!(dga_buffer = memalign(64,video_mode_info.XResolution*video_mode_info.YResolution*dstBpp)))
++		    if(!(dga_buffer = av_malloc(video_mode_info.XResolution*video_mode_info.YResolution*dstBpp)))
+ 		    {
+  		      mp_msg(MSGT_VO,MSGL_ERR, MSGTR_LIBVO_VESA_CantAllocateTemporaryBuffer);
+ 		      return -1;
+Index: mplayer/loader/win32.c
+===================================================================
+--- mplayer/loader/win32.c	(revision 35906)
++++ mplayer/loader/win32.c	(working copy)
+@@ -69,9 +69,6 @@
+ #ifdef	HAVE_KSTAT
+ #include <kstat.h>
+ #endif
+-#if HAVE_MALLOC_H
+-#include <malloc.h>
+-#endif
+ 
+ #if HAVE_SYS_MMAN_H
+ #include <sys/mman.h>
+@@ -348,7 +345,7 @@
+ void* mreq_private(int size, int to_zero, int type)
+ {
+     int nsize = size + sizeof(alloc_header);
+-    alloc_header* header = memalign(16, nsize);
++    alloc_header* header = malloc(nsize);
+     if (!header)
+         return 0;
+     if (to_zero)
+Index: mplayer/mplayer.c
+===================================================================
+--- mplayer/mplayer.c	(revision 35906)
++++ mplayer/mplayer.c	(working copy)
+@@ -138,6 +138,11 @@
+ #include "stream/stream_dvd.h"
+ #endif
+ 
++#ifdef CONFIG_FONTCONFIG
++#include <fontconfig/fontconfig.h>
++extern int FcDebugVal;
++#endif
++
+ int slave_mode;
+ int player_idle_mode;
+ int quiet;
+@@ -3056,6 +3061,12 @@
+         gui(GUI_SET_CONTEXT, mpctx);
+         gui(GUI_SET_STATE, (void *)(filename ? GUI_PLAY : GUI_STOP));
+     }
++#elif defined(CONFIG_FONTCONFIG)
++        /* force cache creation here and display fontconfig scan activity */
++        FcDebugVal = 128;
++        FcConfigEnableHome(FcFalse);
++        FcInit();
++        FcDebugVal = 0;
+ #endif
+ 
+ // ******************* Now, let's see the per-file stuff ********************
+Index: mplayer/osdep/keycodes.h
+===================================================================
+--- mplayer/osdep/keycodes.h	(revision 35906)
++++ mplayer/osdep/keycodes.h	(working copy)
+@@ -87,4 +87,34 @@
+ #define KEY_PGDOWN KEY_PAGE_DOWN
+ #define KEY_PGDWN KEY_PAGE_DOWN
+ 
++/* Ctrl + Key */
++#define CTRL_A      (0x01)
++#define CTRL_B      (0x02)
++#define CTRL_C      (0x03)
++#define CTRL_D      (0x04)
++#define CTRL_E      (0x05)
++#define CTRL_F      (0x06)
++#define CTRL_G      (0x07)
++/* #define CTRL_H      (0x08) */ /* KEY_BACKSPACE */
++/* #define CTRL_I      (0x09) */ /* KEY_TAB */
++#define CTRL_J      (0x0a)
++#define CTRL_K      (0x0b)
++/* #define CTRL_M      (0x0c) */ /* KEY_ENTER */
++#define CTRL_N      (0x0e)
++#define CTRL_O      (0x0f)
++#define CTRL_P      (0x10)
++#define CTRL_Q      (0x11)
++#define CTRL_L      (0x12)
++#define CTRL_V      (0x16)
++#define CTRL_W      (0x17)
++#define CTRL_R      (0x18)
++#define CTRL_S      (0x19)
++#define CTRL_Z      (0x1a)
++#define CTRL_SO     (0x1b)
++#define CTRL_BSL    (0x1c)
++#define CTRL_SC     (0x1d)
++#define CTRL_T      (0x20)
++#define CTRL_U      (0x21)
++#define CTRL_Y      (0x25)
++
+ #endif /* MPLAYER_KEYCODES_H */
+Index: mplayer/osdep/mplayer.exe.manifest
+===================================================================
+--- mplayer/osdep/mplayer.exe.manifest	(revision 35906)
++++ mplayer/osdep/mplayer.exe.manifest	(working copy)
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+ <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+     <assemblyIdentity
+-        version="0.0.9.0"
++        version="0.1.1.0"
+         processorArchitecture="*"
+         name="MPlayer - The Movie Player"
+         type="win32"
+Index: mplayer/osdep/mplayer.rc
+===================================================================
+--- mplayer/osdep/mplayer.rc	(revision 35906)
++++ mplayer/osdep/mplayer.rc	(working copy)
+@@ -19,11 +19,19 @@
+  */
+ 
+ #include <winver.h>
+-#include "version.h"
++#include "../version.h"
+ 
++#ifdef IN_MENCODER
++#define FILENAME "mencoder.exe\000"
++#define DESCRIPTION "MEncoder\000"
++#else
++#define FILENAME "mplayer.exe\000"
++#define DESCRIPTION "MPlayer - The Movie Player\000"
++#endif
++
+ 1 VERSIONINFO
+-FILEVERSION 0,0,9,0
+-PRODUCTVERSION 0,0,9,0
++FILEVERSION 0,1,1,0
++PRODUCTVERSION 0,1,1,0
+ FILEOS VOS__WINDOWS32
+ FILETYPE VFT_APP
+ {
+@@ -33,15 +41,16 @@
+         {
+             VALUE "Comments","MPlayer is distributed under the terms of the GNU General Public License Version 2. Source code is available at http://www.mplayerhq.hu\000"
+             VALUE "CompanyName", "\000"
+-            VALUE "FileDescription", "MPlayer - Movie Player\000"
++            VALUE "FileDescription",DESCRIPTION
+             VALUE "FileVersion",VERSION
+             VALUE "InternalName", "Counter Counter\000"
+             VALUE "LegalCopyright", " (C) 2000-2013 MPlayer Team\000"
+             //VALUE "LegalTrademarks"," \000";
+-            VALUE "OriginalFilename", "mplayer.exe\000"
+-            VALUE "ProductName", "MPlayer - The Movie Player\000"
++            VALUE "OriginalFilename",FILENAME
++            VALUE "ProductName",DESCRIPTION
+             VALUE "ProductVersion",VERSION
+             //VALUE "SpecialBuild","\000"
++            VALUE "SpecialBuild","http://smplayer.sf.net\000"
+         }
+     }
+     BLOCK "VarFileInfo"
+@@ -50,7 +59,11 @@
+     }
+ }
+ 
+-IDI_ICON1 ICON DISCARDABLE  "etc/mplayer.ico"
++#ifdef IN_MENCODER
++MAIN ICON DISCARDABLE "etc/mencoder.ico"
++#else
++MAIN ICON DISCARDABLE "etc/mplayer.ico"
++#endif
+ 
+ // for some reason RT_MANIFEST does not work
+ 1 24 "mplayer.exe.manifest"
+Index: mplayer/parser-cfg.c
+===================================================================
+--- mplayer/parser-cfg.c	(revision 35906)
++++ mplayer/parser-cfg.c	(working copy)
+@@ -60,10 +60,10 @@
+ #define MAX_OPT_LEN	1000
+ #define MAX_PARAM_LEN	1500
+ 	FILE *fp = NULL;
+-	char *line = NULL;
+-	char opt[MAX_OPT_LEN + 1];
+-	char param[MAX_PARAM_LEN + 1];
+-	char c;		/* for the "" and '' check */
++	unsigned char *line = NULL;
++	unsigned char opt[MAX_OPT_LEN + 1];
++	unsigned char param[MAX_PARAM_LEN + 1];
++	unsigned char c;		/* for the "" and '' check */
+ 	int tmp;
+ 	int line_num = 0;
+ 	int line_pos;	/* line pos */
+Index: mplayer/stream/stream_dvd.c
+===================================================================
+--- mplayer/stream/stream_dvd.c	(revision 35906)
++++ mplayer/stream/stream_dvd.c	(working copy)
+@@ -85,8 +85,8 @@
+   stream_opts_fields
+ };
+ 
+-int dvd_parse_chapter_range(const m_option_t *conf, const char *range) {
+-  const char *s;
++int dvd_parse_chapter_range(const m_option_t *conf, const unsigned char *range) {
++  const unsigned char *s;
+   char *t;
+   if (!range)
+     return M_OPT_MISSING_PARAM;
+Index: mplayer/stream/stream_dvd.h
+===================================================================
+--- mplayer/stream/stream_dvd.h	(revision 35906)
++++ mplayer/stream/stream_dvd.h	(working copy)
+@@ -60,6 +60,6 @@
+ int dvd_aid_from_lang(stream_t *stream, const unsigned char* lang);
+ int dvd_sid_from_lang(stream_t *stream, const unsigned char* lang);
+ int dvd_chapter_from_cell(dvd_priv_t *dvd,int title,int cell);
+-int dvd_parse_chapter_range(const m_option_t *conf, const char *range);
++int dvd_parse_chapter_range(const m_option_t *conf, const unsigned char *range);
+ 
+ #endif /* MPLAYER_STREAM_DVD_H */
+Index: mplayer/stream/tv.c
+===================================================================
+--- mplayer/stream/tv.c	(revision 35906)
++++ mplayer/stream/tv.c	(working copy)
+@@ -576,7 +576,7 @@
+ 	int channel = 0;
+ 	if (tvh->tv_param->channel)
+ 	 {
+-	   if (isdigit(*tvh->tv_param->channel))
++	   if (isdigit((unsigned char) *tvh->tv_param->channel))
+ 		/* if tvh->tv_param->channel begins with a digit interpret it as a number */
+ 		channel = atoi(tvh->tv_param->channel);
+ 	   else
+Index: mplayer/sub/sub.c
+===================================================================
+--- mplayer/sub/sub.c	(revision 35906)
++++ mplayer/sub/sub.c	(working copy)
+@@ -21,9 +21,6 @@
+ #include <string.h>
+ 
+ #include "config.h"
+-#if HAVE_MALLOC_H
+-#include <malloc.h>
+-#endif
+ 
+ #include "stream/stream.h"
+ #include "stream/stream_dvdnav.h"
+@@ -155,10 +152,10 @@
+     len = obj->stride*(obj->bbox.y2-obj->bbox.y1);
+     if (obj->allocated<len) {
+ 	obj->allocated = len;
+-	free(obj->bitmap_buffer);
+-	free(obj->alpha_buffer);
+-	obj->bitmap_buffer = memalign(16, len);
+-	obj->alpha_buffer  = memalign(16, len);
++	av_free(obj->bitmap_buffer);
++	av_free(obj->alpha_buffer);
++	obj->bitmap_buffer = av_malloc(len);
++	obj->alpha_buffer  = av_malloc(len);
+     }
+     memset(obj->bitmap_buffer, sub_bg_color, len);
+     memset(obj->alpha_buffer, sub_bg_alpha, len);
+@@ -1100,8 +1097,8 @@
+     mp_osd_obj_t* obj=vo_osd_list;
+     while(obj){
+ 	mp_osd_obj_t* next=obj->next;
+-	free(obj->alpha_buffer);
+-	free(obj->bitmap_buffer);
++	av_free(obj->alpha_buffer);
++	av_free(obj->bitmap_buffer);
+ 	free(obj);
+ 	obj=next;
+     }
+Index: mplayer/sub/subreader.c
+===================================================================
+--- mplayer/sub/subreader.c	(revision 35906)
++++ mplayer/sub/subreader.c	(working copy)
+@@ -87,12 +87,12 @@
+ unsigned long previous_sub_end;
+ #endif
+ 
+-static int eol(char p) {
++static int eol(unsigned char p) {
+ 	return p=='\r' || p=='\n' || p=='\0';
+ }
+ 
+ /* Remove leading and trailing space */
+-static void trail_space(char *s) {
++static void trail_space(unsigned char *s) {
+ 	int i = 0;
+ 	while (isspace(s[i])) ++i;
+ 	if (i) strcpy(s, s + i);
+@@ -736,8 +736,8 @@
+  * by set, based on code by szabi (dunnowhat sub format ;-)
+  */
+ static subtitle *sub_read_line_pjs(stream_t *st,subtitle *current, int utf16) {
+-    char line[LINE_LEN+1];
+-    char text[LINE_LEN+1], *s, *d;
++    unsigned char line[LINE_LEN+1];
++    unsigned char text[LINE_LEN+1], *s, *d;
+ 
+     if (!stream_read_line (st, line, LINE_LEN, utf16))
+ 	return NULL;
+@@ -777,7 +777,7 @@
+ 	char line[LINE_LEN+1];
+ 	float a,b;
+ 	int num=0;
+-	char *p, *q;
++	unsigned char *p, *q;
+ 
+ 	do
+ 	{
+@@ -915,7 +915,7 @@
+ 
+ static subtitle *sub_read_line_jacosub(stream_t* st, subtitle * current, int utf16)
+ {
+-    char line1[LINE_LEN], line2[LINE_LEN], directive[LINE_LEN], *p, *q;
++    unsigned char line1[LINE_LEN], line2[LINE_LEN], directive[LINE_LEN], *p, *q;
+     unsigned a1, a2, a3, a4, b1, b2, b3, b4, comment = 0;
+     static unsigned jacoTimeres = 30;
+     static int jacoShift = 0;
+@@ -1829,7 +1829,7 @@
+ #endif
+ 
+ 
+-static void strcpy_trim(char *d, const char *s)
++static void strcpy_trim(unsigned char *d, const unsigned char *s)
+ {
+     // skip leading whitespace
+     while (*s && isspace(*s)) {
+@@ -1884,7 +1884,7 @@
+    }
+ }
+ 
+-static int whiteonly(const char *s)
++static int whiteonly(const unsigned char *s)
+ {
+     while (*s) {
+ 	if (!isspace(*s)) return 0;
+Index: mplayer/sub/vobsub.c
+===================================================================
+--- mplayer/sub/vobsub.c	(revision 35906)
++++ mplayer/sub/vobsub.c	(working copy)
+@@ -233,7 +233,7 @@
+ 
+ /**********************************************************************/
+ 
+-static ssize_t vobsub_getline(char **lineptr, size_t *n, rar_stream_t *stream)
++static ssize_t vobsub_getline(unsigned char **lineptr, size_t *n, rar_stream_t *stream)
+ {
+     size_t res = 0;
+     int c;
+@@ -242,7 +242,7 @@
+         if (*lineptr)
+             *n = 4096;
+     } else if (*n == 0) {
+-        char *tmp = realloc(*lineptr, 4096);
++        unsigned char *tmp = realloc(*lineptr, 4096);
+         if (tmp) {
+             *lineptr = tmp;
+             *n = 4096;
+@@ -666,11 +666,11 @@
+     return -1;
+ }
+ 
+-static int vobsub_parse_id(vobsub_t *vob, const char *line)
++static int vobsub_parse_id(vobsub_t *vob, const unsigned char *line)
+ {
+     // id: xx, index: n
+     size_t idlen;
+-    const char *p, *q;
++    const unsigned char *p, *q;
+     p  = line;
+     while (isspace(*p))
+         ++p;
+@@ -693,7 +693,7 @@
+     return vobsub_add_id(vob, p, idlen, atoi(q));
+ }
+ 
+-static int vobsub_parse_timestamp(vobsub_t *vob, const char *line)
++static int vobsub_parse_timestamp(vobsub_t *vob, const unsigned char *line)
+ {
+     int h, m, s, ms;
+     off_t filepos;
+@@ -703,7 +703,7 @@
+     return vobsub_add_timestamp(vob, filepos, vob->delay + ms + 1000 * (s + 60 * (m + 60 * h)));
+ }
+ 
+-static int vobsub_parse_origin(vobsub_t *vob, const char *line)
++static int vobsub_parse_origin(vobsub_t *vob, const unsigned char *line)
+ {
+     // org: X,Y
+     unsigned x, y;
+@@ -743,7 +743,7 @@
+     return y << 16 | u << 8 | v;
+ }
+ 
+-static int vobsub_parse_delay(vobsub_t *vob, const char *line)
++static int vobsub_parse_delay(vobsub_t *vob, const unsigned char *line)
+ {
+     int h, m, s, ms;
+     int forward = 1;
+@@ -767,7 +767,7 @@
+     return 0;
+ }
+ 
+-static int vobsub_set_lang(const char *line)
++static int vobsub_set_lang(const unsigned char *line)
+ {
+     if (vobsub_id == -1)
+         vobsub_id = atoi(line + 8);
+@@ -781,7 +781,7 @@
+     ssize_t line_size;
+     int res = -1;
+         size_t line_reserve = 0;
+-        char *line = NULL;
++        unsigned char *line = NULL;
+     do {
+         line_size = vobsub_getline(&line, &line_reserve, fd);
+         if (line_size < 0 || line_size > 1000000 ||
+Index: mplayer/version.sh
+===================================================================
+--- mplayer/version.sh	(revision 35906)
++++ mplayer/version.sh	(working copy)
+@@ -12,19 +12,26 @@
+ test $svn_revision || svn_revision=$(LC_ALL=C svn info 2> /dev/null | grep Revision | cut -d' ' -f2)
+ test $svn_revision || svn_revision=$(grep revision .svn/entries 2>/dev/null | cut -d '"' -f2)
+ test $svn_revision || svn_revision=$(sed -n -e '/^dir$/{n;p;q;}' .svn/entries 2>/dev/null)
+-test $svn_revision && svn_revision=SVN-r$svn_revision
++test $svn_revision && svn_revision=Redxii-SVN-r$svn_revision
+ test $svn_revision || svn_revision=UNKNOWN
+ version=$svn_revision
+ fi
+ 
++ffmpeg_version=$(cat snapshot_ffmpeg 2> /dev/null)
++test $ffmpeg_version || ffmpeg_version=UNKNOWN
++
+ NEW_REVISION="#define VERSION \"${version}${extra}\""
+ OLD_REVISION=$(head -n 1 version.h 2> /dev/null)
+-TITLE='#define MP_TITLE "%s "VERSION" (C) 2000-2013 MPlayer Team\n"'
++FFMPEG_VERSION="#define FFMPEG_VERSION \"${ffmpeg_version}\""
++BUILD_DATE="#define BUILD_DATE \"$(date)\""
++TITLE='#define MP_TITLE "%s "VERSION" (C) 2000-2013 MPlayer Team\nCustom build by Redxii, http://smplayer.sourceforge.net\nCompiled against FFmpeg version "FFMPEG_VERSION"\nBuild date: "BUILD_DATE"\n\n"'
+ 
+ # Update version.h only on revision changes to avoid spurious rebuilds
+ if test "$NEW_REVISION" != "$OLD_REVISION"; then
+     cat <<EOF > version.h
+ $NEW_REVISION
++$FFMPEG_VERSION
++$BUILD_DATE
+ $TITLE
+ EOF
+ fi
+Index: mplayer/libdvdnav/remap.c
+===================================================================
+--- mplayer/libdvdnav/remap.c	(revision 1250)
++++ mplayer/libdvdnav/remap.c	(working copy)
+@@ -199,12 +199,28 @@
+ 
+     memset(&tmp, 0, sizeof(tmp));
+     /* Build the map filename */
++#ifdef __MINGW32__
++    {
++        char exedir[MAX_PATH + 1];
++        if (GetModuleFileNameA(NULL, exedir, MAX_PATH) && (home = strrchr(exedir, '\\')))
++        {
++            *home = 0;
++            snprintf(fname, sizeof(fname) - 1, "%s\\dvdnav\\%s.map", exedir, title);
++        }
++        else
++        {
++            fprintf(MSG_OUT, "libdvdnav: Unable to find executable directory\n" );
++            return NULL;
++        }
++    }
++#else
+     home = getenv("HOME");
+     if(!home) {
+-        fprintf(MSG_OUT, "libdvdnav: Unable to find home directory" );
++        fprintf(MSG_OUT, "libdvdnav: Unable to find home directory\n" );
+         return NULL;
+     }
+     snprintf(fname, sizeof(fname), "%s/.dvdnav/%s.map", home, title);
++#endif
+ 
+     /* Open the map file */
+     fp = fopen( fname, "r");
+Index: mplayer/libdvdnav/vm/vm.c
+===================================================================
+--- mplayer/libdvdnav/vm/vm.c	(revision 1250)
++++ mplayer/libdvdnav/vm/vm.c	(working copy)
+@@ -1762,8 +1762,7 @@
+   pgcit_t *pgcit;
+ 
+   pgcit = get_PGCIT(vm);
+-  if (pgcit != NULL)
+-    return 0;
++  assert(pgcit != NULL);  /* ?? Make this return -1 instead */
+ 
+   if(pgcN < 1 || pgcN > pgcit->nr_of_pgci_srp) {
+ #ifdef TRACE

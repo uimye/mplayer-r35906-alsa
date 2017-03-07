@@ -1,0 +1,31 @@
+Index: mplayer/mplayer.c
+===================================================================
+--- mplayer.orig/mplayer.c	2012-07-23 01:33:32.858967800 +0200
++++ mplayer/mplayer.c	2012-07-23 01:33:35.446115800 +0200
+@@ -138,6 +138,11 @@
+ #include "stream/stream_dvd.h"
+ #endif
+ 
++#ifdef CONFIG_FONTCONFIG
++#include <fontconfig/fontconfig.h>
++extern int FcDebugVal;
++#endif
++
+ int slave_mode;
+ int player_idle_mode;
+ int quiet;
+@@ -3072,6 +3077,14 @@
+         gui(GUI_SET_CONTEXT, mpctx);
+         gui(GUI_SET_STATE, (void *)(filename ? GUI_PLAY : GUI_STOP));
+     }
++#else
++    /* force cache creation here and display fontconfig scan activity */     
++    FcDebugVal = 128;
++#ifdef _WIN32
++    FcConfigEnableHome(FcFalse);
++#endif
++    FcInit();
++    FcDebugVal = 0;
+ #endif
+ 
+ // ******************* Now, let's see the per-file stuff ********************

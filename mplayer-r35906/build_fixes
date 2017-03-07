@@ -1,0 +1,45 @@
+#! /bin/sh
+#
+# MPlayer config.mak/config.h hacks; since some things aren't enabled properly
+# due to MPlayer compiling FFmpeg in-tree.
+#
+
+_rundecoders=no
+_runencoders=no
+
+for ac_option do
+  case "$ac_option" in
+  --replace-decoders)   _rundecoders=yes    ;;
+  --replace-encoders)   _runencoders=yes     ;;
+
+  *)
+    echo "Unknown parameter: $ac_option"
+    exit 1
+    ;;
+
+  esac
+done
+
+enable_decoders(){
+sed -i 's/CONFIG_LIBVORBIS_DECODER = no/CONFIG_LIBVORBIS_DECODER = yes/g' config.mak
+sed -i 's/CONFIG_LIBSPEEX_DECODER = no/CONFIG_LIBSPEEX_DECODER = yes/g' config.mak
+
+sed -i 's/#define CONFIG_LIBVORBIS_DECODER 0/#define CONFIG_LIBVORBIS_DECODER 1/g' config.h
+sed -i 's/#define CONFIG_LIBSPEEX_DECODER 0/#define CONFIG_LIBSPEEX_DECODER 1/g' config.h
+}
+
+enable_encoders(){
+sed -i 's/CONFIG_LIBVORBIS_ENCODER = no/CONFIG_LIBVORBIS_ENCODER = yes/g' config.mak
+sed -i 's/CONFIG_LIBSPEEX_ENCODER = no/CONFIG_LIBSPEEX_ENCODER = yes/g' config.mak
+
+sed -i 's/#define CONFIG_LIBVORBIS_ENCODER 0/#define CONFIG_LIBVORBIS_ENCODER 1/g' config.h
+sed -i 's/#define CONFIG_LIBSPEEX_ENCODER 0/#define CONFIG_LIBSPEEX_ENCODER 1/g' config.h
+}
+
+if test "$_rundecoders" = yes ; then
+  enable_decoders
+fi
+
+if test "$_runencoders" = yes ; then
+  enable_encoders
+fi
