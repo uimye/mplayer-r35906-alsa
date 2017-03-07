@@ -1,0 +1,372 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ALT_BITSTREAM_READER	wma_bitstream.h	5;"	d
+AVCODEC_H	wma_avcodec.h	3;"	d
+AVCODEC_WMADATA_H	wma_wmadata.h	3;"	d
+AVCodec	wma_avcodec.h	/^typedef struct AVCodec $/;"	s
+AVCodec	wma_avcodec.h	/^} AVCodec;$/;"	t	typeref:struct:AVCodec
+AVCodecContext	wma_avcodec.h	/^typedef struct AVCodecContext $/;"	s
+AVCodecContext	wma_avcodec.h	/^} AVCodecContext;$/;"	t	typeref:struct:AVCodecContext
+AVCodecParser	wma_avcodec.h	/^typedef struct AVCodecParser $/;"	s
+AVCodecParser	wma_avcodec.h	/^} AVCodecParser;$/;"	t	typeref:struct:AVCodecParser
+AVCodecParserContext	wma_avcodec.h	/^typedef struct AVCodecParserContext$/;"	s
+AVCodecParserContext	wma_avcodec.h	/^} AVCodecParserContext;$/;"	t	typeref:struct:AVCodecParserContext
+AVIO_H	wma_avio.h	3;"	d
+AV_RL16	wma_common.h	33;"	d
+AV_RL32	wma_common.h	34;"	d
+BF	wma_wmadecfix.c	492;"	d	file:
+BITSTREAM_H	wma_bitstream.h	3;"	d
+BLOCK_MAX_BITS	wma_wmafixed.h	9;"	d
+BLOCK_MAX_SIZE	wma_wmafixed.h	10;"	d
+BLOCK_MIN_BITS	wma_wmafixed.h	8;"	d
+BLOCK_NB_SIZES	wma_wmafixed.h	12;"	d
+ByteIOContext	wma_avio.h	/^typedef struct ByteIOContext$/;"	s
+ByteIOContext	wma_avio.h	/^} ByteIOContext;$/;"	t	typeref:struct:ByteIOContext
+CMUL	wma_wmadecfix.c	507;"	d	file:
+CMUL	wma_wmadecfix.c	649;"	d	file:
+CMUL	wma_wmadecfix.c	652;"	d	file:
+CODEC_ID_NONE	wma_avcodec.h	/^    CODEC_ID_NONE,$/;"	e	enum:CodecID
+CODEC_ID_WMAV1	wma_avcodec.h	/^    CODEC_ID_WMAV1,$/;"	e	enum:CodecID
+CODEC_ID_WMAV2	wma_avcodec.h	/^    CODEC_ID_WMAV2$/;"	e	enum:CodecID
+CODEC_TYPE_AUDIO	wma_avcodec.h	/^	CODEC_TYPE_AUDIO$/;"	e	enum:CodecType
+CODEC_TYPE_UNKOWN	wma_avcodec.h	/^	CODEC_TYPE_UNKOWN,$/;"	e	enum:CodecType
+COMMON_H	wma_common.h	3;"	d
+CodecID	wma_avcodec.h	/^enum CodecID $/;"	g
+CodecTag	wma_wav.c	/^typedef struct CodecTag$/;"	s	file:
+CodecTag	wma_wav.c	/^} CodecTag;$/;"	t	typeref:struct:CodecTag	file:
+CodecType	wma_avcodec.h	/^enum CodecType$/;"	g
+CoefVLCTable	wma_wmafixed.h	/^typedef struct CoefVLCTable {$/;"	s
+CoefVLCTable	wma_wmafixed.h	/^} CoefVLCTable;$/;"	t	typeref:struct:CoefVLCTable
+DECLARE_ALIGNED	wma_common.h	37;"	d
+DECLARE_ALIGNED_16	wma_common.h	39;"	d
+DECLARE_ALIGNED_16	wma_common.h	41;"	d
+DECLARE_ASM_CONST	wma_common.h	38;"	d
+Decoder	wma_main.c	/^int Decoder(unsigned char* wmabuf, int bufsz)$/;"	f
+EXPMAX	wma_wmadecfix.c	14;"	d	file:
+EXPVLCBITS	wma_wmadecfix.c	13;"	d	file:
+EXP_FRAC_BIT	wma_fixed.h	3;"	d
+FFMAX	wma_common.h	31;"	d
+FFMIN	wma_common.h	30;"	d
+FFTComplexFix	wma_wmafixed.h	/^typedef struct FFTComplexFix {$/;"	s
+FFTComplexFix	wma_wmafixed.h	/^} FFTComplexFix;$/;"	t	typeref:struct:FFTComplexFix
+FFTComplex_fix	wma_fft_fix.h	/^typedef struct FFTComplex_fix {$/;"	s
+FFTComplex_fix	wma_fft_fix.h	/^} FFTComplex_fix;$/;"	t	typeref:struct:FFTComplex_fix
+FFTContextFix	wma_wmafixed.h	/^typedef struct FFTContextFix {$/;"	s
+FFTContextFix	wma_wmafixed.h	/^} FFTContextFix;$/;"	t	typeref:struct:FFTContextFix
+FFTContext_fix	wma_fft_fix.h	/^typedef struct FFTContext_fix {$/;"	s
+FFTContext_fix	wma_fft_fix.h	/^} FFTContext_fix;$/;"	t	typeref:struct:FFTContext_fix
+FFTSample_fix	wma_fft_fix.h	/^typedef int   FFTSample_fix;$/;"	t
+FFT_BF_fix	wma_fft_fix.h	28;"	d
+FFT_CMUL_fix	wma_fft_fix.h	44;"	d
+FFT_CMUL_fix	wma_fft_fix.h	63;"	d
+FFT_FIXED_H	wma_fft_fix.h	2;"	d
+FFT_FRICTIONS	wma_fft_fix.h	40;"	d
+FFT_MUL_fix	wma_fft_fix.h	43;"	d
+FFT_MUL_fix	wma_fft_fix.h	54;"	d
+FFT_SAMPLE	wma_fft_fix.h	41;"	d
+FF_INPUT_BUFFER_PADDING_SIZE	wma_wav.c	5;"	d	file:
+FIXED	wma_fixed.h	9;"	d
+FIXF2_MULT	wma_fixed.h	6;"	d
+FIX_DIV	wma_fixed.h	4;"	d
+FIX_MULT	wma_fixed.h	5;"	d
+FIX_MULT3	wma_fixed.h	7;"	d
+FLOAT	wma_fixed.h	8;"	d
+FRAC_BIT	wma_fixed.h	2;"	d
+GET_DATA	wma_bitstream.c	44;"	d	file:
+GetBitContext	wma_bitstream.h	/^typedef struct GetBitContext$/;"	s
+GetBitContext	wma_bitstream.h	/^} GetBitContext;$/;"	t	typeref:struct:GetBitContext
+HGAINMAX	wma_wmadecfix.c	17;"	d	file:
+HGAINVLCBITS	wma_wmadecfix.c	16;"	d	file:
+HIGH_BAND_MAX_SIZE	wma_wmafixed.h	15;"	d
+INIT_VLC_LE	wma_bitstream.h	192;"	d
+INIT_VLC_USE_STATIC	wma_bitstream.h	191;"	d
+INT_MAX	wma_mem.c	6;"	d	file:
+InitDecoder	wma_main.c	/^void InitDecoder()$/;"	f
+LITTILE_END	wma_common.h	28;"	d
+LSP_POW_BITS	wma_wmafixed.h	26;"	d
+MAX_CHANNELS	wma_wmafixed.h	22;"	d
+MAX_CODED_SUPERFRAME_SIZE	wma_wmafixed.h	20;"	d
+MDCTContextFix	wma_wmafixed.h	/^typedef struct MDCTContextFix {$/;"	s
+MDCTContextFix	wma_wmafixed.h	/^} MDCTContextFix;$/;"	t	typeref:struct:MDCTContextFix
+MDCTContext_fix	wma_mdct_fix.h	/^typedef struct MDCTContext_fix {$/;"	s
+MDCTContext_fix	wma_mdct_fix.h	/^} MDCTContext_fix;$/;"	t	typeref:struct:MDCTContext_fix
+MDCT_FIXED_H	wma_mdct_fix.h	3;"	d
+MUL16	wma_wmadecfix.c	505;"	d	file:
+M_PI	wma_common.h	12;"	d
+M_PI	wma_fft_fix.h	6;"	d
+NB_LSP_COEFS	wma_wmafixed.h	17;"	d
+NDEBUG	wma_wmadecfix.c	10;"	d	file:
+NDEBUG	wma_wmafix.c	11;"	d	file:
+NOISE_TAB_SIZE	wma_wmafixed.h	24;"	d
+NULL	wma_common.h	8;"	d
+UninitDecoder	wma_main.c	/^void UninitDecoder()$/;"	f
+VLC	wma_bitstream.h	/^typedef struct VLC$/;"	s
+VLC	wma_bitstream.h	/^} VLC;$/;"	t	typeref:struct:VLC
+VLCBITS	wma_wmafixed.h	29;"	d
+VLCMAX	wma_wmafixed.h	30;"	d
+VLC_TYPE	wma_bitstream.h	15;"	d
+WMACodecContext	wma_wmafixed.h	/^typedef struct WMACodecContext {$/;"	s
+WMACodecContext	wma_wmafixed.h	/^} WMACodecContext;$/;"	t	typeref:struct:WMACodecContext
+WMA_H	wma_wmafixed.h	3;"	d
+actx	wma_main.c	/^AVCodecContext *actx=NULL;$/;"	v
+align_get_bits	wma_bitstream.c	/^void align_get_bits(GetBitContext *s)$/;"	f
+alloc_table	wma_bitstream.c	/^static int alloc_table(VLC *vlc, int size, int use_static)$/;"	f	file:
+allocated_static	wma_utils_codec.c	/^static unsigned int allocated_static = 0;$/;"	v	file:
+array_static	wma_utils_codec.c	/^static void **array_static = NULL;$/;"	v	file:
+av_clip_int16	wma_common.h	/^static inline int16_t av_clip_int16(int a)$/;"	f
+av_clip_uint8	wma_common.h	/^static inline uint8_t av_clip_uint8(int a)$/;"	f
+av_fast_realloc	wma_utils_codec.c	/^void *av_fast_realloc(void *ptr, unsigned int *size, unsigned int min_size)$/;"	f
+av_free	wma_mem.c	/^void av_free(void *ptr)$/;"	f
+av_free_static	wma_utils_codec.c	/^void av_free_static(void)$/;"	f
+av_freep	wma_utils_codec.c	/^void av_freep(void *arg)$/;"	f
+av_log2	wma_log2.h	/^static inline int av_log2(unsigned int v)$/;"	f
+av_malloc	wma_mem.c	/^void *av_malloc(unsigned int size)$/;"	f
+av_mallocz	wma_utils_codec.c	/^void *av_mallocz(unsigned int size)$/;"	f
+av_mallocz_static	wma_utils_codec.c	/^void *av_mallocz_static(unsigned int size)$/;"	f
+av_realloc	wma_mem.c	/^void *av_realloc(void *ptr, unsigned int size)$/;"	f
+av_realloc_static	wma_utils_codec.c	/^void *av_realloc_static(void *ptr, unsigned int size)$/;"	f
+avcodec_alloc_context	wma_utils_codec.c	/^AVCodecContext *avcodec_alloc_context(void)$/;"	f
+avcodec_close	wma_utils_codec.c	/^int avcodec_close(AVCodecContext *avctx)$/;"	f
+avcodec_decode_audio	wma_utils_codec.c	/^int avcodec_decode_audio(AVCodecContext *avctx, int16_t *samples, int *frame_size_ptr, uint8_t *buf, int buf_size)$/;"	f
+avcodec_find_decoder	wma_utils_codec.c	/^AVCodec *avcodec_find_decoder(enum CodecID id)$/;"	f
+avcodec_flush_buffers	wma_utils_codec.c	/^void avcodec_flush_buffers(AVCodecContext *avctx)$/;"	f
+avcodec_init	wma_utils_codec.c	/^void avcodec_init(void)$/;"	f
+avcodec_open	wma_utils_codec.c	/^int avcodec_open(AVCodecContext *avctx, AVCodec *codec)$/;"	f
+avcodec_register_all	wma_allcodecs.c	/^void avcodec_register_all(void)$/;"	f
+avctx	wma_wmafixed.h	/^    AVCodecContext* avctx;$/;"	m	struct:WMACodecContext
+bit_rate	wma_avcodec.h	/^    int bit_rate;$/;"	m	struct:AVCodecContext
+bit_rate	wma_wmafixed.h	/^    int bit_rate;$/;"	m	struct:WMACodecContext
+bits	wma_bitstream.h	/^    int bits;$/;"	m	struct:VLC
+bits_per_sample	wma_avcodec.h	/^    int bits_per_sample;$/;"	m	struct:AVCodecContext
+block_align	wma_avcodec.h	/^    int block_align;$/;"	m	struct:AVCodecContext
+block_align	wma_wmafixed.h	/^    int block_align;$/;"	m	struct:WMACodecContext
+block_len	wma_wmafixed.h	/^    int block_len;                          \/\/\/< block length in samples$/;"	m	struct:WMACodecContext
+block_len_bits	wma_wmafixed.h	/^    int block_len_bits;                     \/\/\/< log2 of current block length$/;"	m	struct:WMACodecContext
+block_num	wma_wmafixed.h	/^    int block_num;                          \/\/\/< block number in current frame$/;"	m	struct:WMACodecContext
+block_pos	wma_wmafixed.h	/^    int block_pos;                          \/\/\/< current position in frame$/;"	m	struct:WMACodecContext
+buf_end	wma_avio.h	/^    unsigned char *buf_ptr,  *buf_end;$/;"	m	struct:ByteIOContext
+buf_ptr	wma_avio.h	/^    unsigned char *buf_ptr,  *buf_end;$/;"	m	struct:ByteIOContext
+buffer	wma_avio.h	/^    unsigned char *buffer;$/;"	m	struct:ByteIOContext
+buffer	wma_bitstream.h	/^    const uint8_t *buffer,  *buffer_end;$/;"	m	struct:GetBitContext
+buffer_end	wma_bitstream.h	/^    const uint8_t *buffer,  *buffer_end;$/;"	m	struct:GetBitContext
+buffer_size	wma_avio.h	/^    int buffer_size;$/;"	m	struct:ByteIOContext
+build_table	wma_bitstream.c	/^static int build_table(VLC *vlc, int table_nb_bits, int nb_codes, const void *bits, int bits_wrap, int bits_size, const void *codes, int codes_wrap, int codes_size, uint32_t code_prefix, int n_prefix, int flags)$/;"	f	file:
+byte_offset_bits	wma_wmafixed.h	/^    int byte_offset_bits;$/;"	m	struct:WMACodecContext
+capabilities	wma_avcodec.h	/^    int capabilities;$/;"	m	struct:AVCodec
+channel_coded	wma_wmafixed.h	/^    uint8_t channel_coded[MAX_CHANNELS];    \/\/\/< true if channel is coded$/;"	m	struct:WMACodecContext
+channels	wma_avcodec.h	/^    int channels;$/;"	m	struct:AVCodecContext
+close	wma_avcodec.h	/^    int (*close)(AVCodecContext *);$/;"	m	struct:AVCodec
+codec	wma_avcodec.h	/^    struct AVCodec *codec;$/;"	m	struct:AVCodecContext	typeref:struct:AVCodecContext::AVCodec
+codec	wma_main.c	/^AVCodec *codec=NULL;$/;"	v
+codec_get_id	wma_wav.c	/^enum CodecID codec_get_id(const CodecTag *tags, unsigned int tag)$/;"	f
+codec_id	wma_avcodec.h	/^    enum CodecID codec_id; \/* see CODEC_ID_xxx *\/$/;"	m	struct:AVCodecContext	typeref:enum:AVCodecContext::CodecID
+codec_name	wma_avcodec.h	/^    char codec_name[32];$/;"	m	struct:AVCodecContext
+codec_tag	wma_avcodec.h	/^    unsigned int codec_tag;$/;"	m	struct:AVCodecContext
+codec_wav_tags	wma_wav.c	/^const CodecTag codec_wav_tags[] = {$/;"	v
+coef0_huffbits	wma_wmadata.h	/^static const uint8_t coef0_huffbits[666] = {$/;"	v
+coef0_huffcodes	wma_wmadata.h	/^static const uint32_t coef0_huffcodes[666] = {$/;"	v
+coef1_huffbits	wma_wmadata.h	/^static const uint8_t coef1_huffbits[555] = {$/;"	v
+coef1_huffcodes	wma_wmadata.h	/^static const uint32_t coef1_huffcodes[555] = {$/;"	v
+coef2_huffbits	wma_wmadata.h	/^static const uint8_t coef2_huffbits[1336] = {$/;"	v
+coef2_huffcodes	wma_wmadata.h	/^static const uint32_t coef2_huffcodes[1336] = {$/;"	v
+coef3_huffbits	wma_wmadata.h	/^static const uint8_t coef3_huffbits[1072] = {$/;"	v
+coef3_huffcodes	wma_wmadata.h	/^static const uint32_t coef3_huffcodes[1072] = {$/;"	v
+coef4_huffbits	wma_wmadata.h	/^static const uint8_t coef4_huffbits[476] = {$/;"	v
+coef4_huffcodes	wma_wmadata.h	/^static const uint32_t coef4_huffcodes[476] = {$/;"	v
+coef5_huffbits	wma_wmadata.h	/^static const uint8_t coef5_huffbits[435] = {$/;"	v
+coef5_huffcodes	wma_wmadata.h	/^static const uint32_t coef5_huffcodes[435] = {$/;"	v
+coef_vlc	wma_wmafixed.h	/^    VLC coef_vlc[2];$/;"	m	struct:WMACodecContext
+coef_vlcs	wma_wmadata.h	/^static const CoefVLCTable coef_vlcs[6] = {$/;"	v
+coef_vlcs	wma_wmafixed.h	/^    const CoefVLCTable *coef_vlcs[2];$/;"	m	struct:WMACodecContext
+coefs1	wma_wmafixed.h	/^    int16_t coefs1[MAX_CHANNELS][BLOCK_MAX_SIZE];$/;"	m	struct:WMACodecContext
+coefs_end	wma_wmafixed.h	/^    int coefs_end[BLOCK_NB_SIZES];          \/\/\/< max number of coded coefficients$/;"	m	struct:WMACodecContext
+coefs_start	wma_wmafixed.h	/^    int coefs_start;                        \/\/\/< first coded coef$/;"	m	struct:WMACodecContext
+decode	wma_avcodec.h	/^    int (*decode)(AVCodecContext *, void *outdata, int *outdata_size, uint8_t *buf, int buf_size);$/;"	m	struct:AVCodec
+decode_exp_lsp	wma_wmadecfix.c	/^static void decode_exp_lsp(WMACodecContext *s, int ch)$/;"	f	file:
+decode_exp_vlc	wma_wmadecfix.c	/^static int decode_exp_vlc(WMACodecContext *s, int ch)$/;"	f	file:
+encode	wma_avcodec.h	/^    int (*encode)(AVCodecContext *, uint8_t *buf, int buf_size, void *data);$/;"	m	struct:AVCodec
+exp_vlc	wma_wmafixed.h	/^    VLC exp_vlc;$/;"	m	struct:WMACodecContext
+exponent_band_22050	wma_wmadata.h	/^static const uint8_t exponent_band_22050[3][25] = {$/;"	v
+exponent_band_32000	wma_wmadata.h	/^static const uint8_t exponent_band_32000[3][25] = {$/;"	v
+exponent_band_44100	wma_wmadata.h	/^static const uint8_t exponent_band_44100[3][25] = {$/;"	v
+exponent_bands	wma_wmafixed.h	/^    uint16_t exponent_bands[BLOCK_NB_SIZES][25];$/;"	m	struct:WMACodecContext
+exponent_high_bands	wma_wmafixed.h	/^    int exponent_high_bands[BLOCK_NB_SIZES][HIGH_BAND_MAX_SIZE];$/;"	m	struct:WMACodecContext
+exponent_high_sizes	wma_wmafixed.h	/^    int exponent_high_sizes[BLOCK_NB_SIZES];$/;"	m	struct:WMACodecContext
+exponent_sizes	wma_wmafixed.h	/^    int exponent_sizes[BLOCK_NB_SIZES];$/;"	m	struct:WMACodecContext
+exponents_bsize	wma_wmafixed.h	/^    int exponents_bsize[MAX_CHANNELS];      \/\/\/< log2 ratio frame\/exp. length$/;"	m	struct:WMACodecContext
+exptab	wma_fft_fix.h	/^    FFTComplex_fix *exptab;$/;"	m	struct:FFTContext_fix
+exptab	wma_wmafixed.h	/^    FFTComplexFix *exptab;$/;"	m	struct:FFTContextFix
+exptab1	wma_wmafixed.h	/^    FFTComplexFix *exptab1; \/* only used by SSE code *\/$/;"	m	struct:FFTContextFix
+extradata	wma_avcodec.h	/^    unsigned char *extradata;$/;"	m	struct:AVCodecContext
+extradata_size	wma_avcodec.h	/^    int extradata_size;$/;"	m	struct:AVCodecContext
+ff_fft_calc_fixed	wma_wmadecfix.c	/^void ff_fft_calc_fixed(FFTContextFix *s, FFTComplexFix *z)$/;"	f
+ff_fft_end_fixed	wma_wmadecfix.c	/^void ff_fft_end_fixed(FFTContextFix *s)$/;"	f
+ff_fft_init_fixed	wma_wmadecfix.c	/^int ff_fft_init_fixed(FFTContextFix *s, int nbits, int inverse)$/;"	f
+ff_imdct_calc_fixed	wma_wmadecfix.c	/^void ff_imdct_calc_fixed(MDCTContextFix *s, int *outputfix,$/;"	f
+ff_imdct_half_fix	wma_mdct_fix.h	/^static __inline void ff_imdct_half_fix(MDCTContext_fix *s, FFTSample_fix *output, const FFTSample_fix *input)$/;"	f
+ff_log2_tab	wma_log2.h	/^static const unsigned char ff_log2_tab[256]={$/;"	v
+ff_mdct_end_fixed	wma_wmadecfix.c	/^void ff_mdct_end_fixed(MDCTContextFix *s)$/;"	f
+ff_mdct_init_fixed	wma_wmadecfix.c	/^int ff_mdct_init_fixed(MDCTContextFix *s, int nbits, int inverse)$/;"	f
+ff_wma_end	wma_wmafix.c	/^int ff_wma_end(AVCodecContext *avctx)$/;"	f
+ff_wma_hgain_huffbits	wma_wmadata.h	/^const uint8_t ff_wma_hgain_huffbits[37] = {$/;"	v
+ff_wma_hgain_huffcodes	wma_wmadata.h	/^const uint16_t ff_wma_hgain_huffcodes[37] = {$/;"	v
+ff_wma_init	wma_wmafix.c	/^int ff_wma_init(AVCodecContext * avctx, int flags2)$/;"	f
+ff_wma_lsp_codebook	wma_wmadata.h	/^const float ff_wma_lsp_codebook[NB_LSP_COEFS][16] = {$/;"	v
+ff_wma_scale_huffbits	wma_wmadata.h	/^const uint8_t ff_wma_scale_huffbits[121] = {$/;"	v
+ff_wma_scale_huffcodes	wma_wmadata.h	/^const uint32_t ff_wma_scale_huffcodes[121] = {$/;"	v
+ff_wma_total_gain_to_bits	wma_wmafix.c	/^int ff_wma_total_gain_to_bits(int total_gain){$/;"	f
+fft	wma_mdct_fix.h	/^    FFTContext_fix fft;$/;"	m	struct:MDCTContext_fix
+fft	wma_wmafixed.h	/^    FFTContextFix fft;$/;"	m	struct:MDCTContextFix
+fft_calc	wma_fft_fix.h	/^    void (*fft_calc)(struct FFTContext_fix *s, FFTComplex_fix *z);$/;"	m	struct:FFTContext_fix
+fft_calc_fix	wma_fft_fix.c	/^void fft_calc_fix(FFTContext_fix *s, FFTComplex_fix *z)$/;"	f
+fft_end_fix	wma_fft_fix.c	/^void fft_end_fix(FFTContext_fix *s)$/;"	f
+fft_init_fix	wma_fft_fix.c	/^int fft_init_fix(FFTContext_fix *s, int nbits, int inverse)$/;"	f
+fft_permute_fix	wma_fft_fix.c	/^void fft_permute_fix(FFTContext_fix *s, FFTComplex_fix *z)$/;"	f
+first_avcodec	wma_utils_codec.c	/^AVCodec *first_avcodec = NULL;$/;"	v
+fixedpow10	wma_wmadecfix.c	/^int fixedpow10 (int exp)$/;"	f
+flags	wma_avcodec.h	/^    int flags;$/;"	m	struct:AVCodecContext
+flags2	wma_avcodec.h	/^    int flags2;$/;"	m	struct:AVCodecContext
+flush	wma_avcodec.h	/^    void (*flush)(AVCodecContext *);$/;"	m	struct:AVCodec
+frame_len	wma_wmafixed.h	/^    int frame_len;                          \/\/\/< frame length in samples$/;"	m	struct:WMACodecContext
+frame_len_bits	wma_wmafixed.h	/^    int frame_len_bits;                     \/\/\/< frame_len = 1 << frame_len_bits$/;"	m	struct:WMACodecContext
+frame_number	wma_avcodec.h	/^    int frame_number;   \/\/\/< audio or video frame number$/;"	m	struct:AVCodecContext
+frame_size	wma_avcodec.h	/^    int frame_size;$/;"	m	struct:AVCodecContext
+free_vlc	wma_bitstream.c	/^void free_vlc(VLC *vlc)$/;"	f
+gb	wma_wmafixed.h	/^    GetBitContext gb;$/;"	m	struct:WMACodecContext
+get_bits	wma_bitstream.h	/^static inline unsigned int get_bits(GetBitContext *s, int n)$/;"	f
+get_bits1	wma_bitstream.h	/^static inline unsigned int get_bits1(GetBitContext *s)$/;"	f
+get_bits_count	wma_bitstream.h	/^static inline int get_bits_count(GetBitContext *s)$/;"	f
+get_bits_long	wma_bitstream.c	/^unsigned int get_bits_long(GetBitContext *s, int n)$/;"	f
+get_buffer	wma_avio.c	/^int get_buffer(ByteIOContext *s, unsigned char *buf, int size)$/;"	f
+get_byte	wma_avio.c	/^int get_byte(ByteIOContext *s)$/;"	f
+get_le16	wma_wav.c	/^unsigned int get_le16(ByteIOContext *s)$/;"	f
+get_le32	wma_wav.c	/^unsigned int get_le32(ByteIOContext *s)$/;"	f
+get_vlc2	wma_bitstream.h	/^static int get_vlc2(GetBitContext *s, VLC_TYPE(*table)[2], int bits, int max_depth)$/;"	f
+get_wav_header	wma_wav.c	/^void get_wav_header(ByteIOContext *pb, AVCodecContext *codec, int size)$/;"	f
+height	wma_avcodec.h	/^    int width, height;$/;"	m	struct:AVCodecContext
+hgain_vlc	wma_wmafixed.h	/^    VLC hgain_vlc;$/;"	m	struct:WMACodecContext
+high_band_coded	wma_wmafixed.h	/^    int high_band_coded[MAX_CHANNELS][HIGH_BAND_MAX_SIZE];$/;"	m	struct:WMACodecContext
+high_band_start	wma_wmafixed.h	/^    int high_band_start[BLOCK_NB_SIZES];    \/\/\/< index of first coef in high band$/;"	m	struct:WMACodecContext
+high_band_values	wma_wmafixed.h	/^    int high_band_values[MAX_CHANNELS][HIGH_BAND_MAX_SIZE];$/;"	m	struct:WMACodecContext
+huffbits	wma_wmafixed.h	/^    const uint8_t *huffbits;    \/\/\/< VLC bit size$/;"	m	struct:CoefVLCTable
+huffcodes	wma_wmafixed.h	/^    const uint32_t *huffcodes;  \/\/\/< VLC bit values$/;"	m	struct:CoefVLCTable
+iPCMBuffer	wma_main.c	/^char *iPCMBuffer=NULL;$/;"	v
+id	wma_avcodec.h	/^    enum CodecID id;$/;"	m	struct:AVCodec	typeref:enum:AVCodec::CodecID
+id	wma_wav.c	/^    int id;$/;"	m	struct:CodecTag	file:
+im	wma_fft_fix.h	/^    FFTSample_fix re, im;$/;"	m	struct:FFTComplex_fix
+imdct_calc	wma_fft_fix.h	/^    void (*imdct_calc)(struct MDCTContext_fix *s, FFTSample_fix *output,$/;"	m	struct:FFTContext_fix
+imdct_calc_fix	wma_mdct_fix.c	/^void imdct_calc_fix(MDCTContext_fix *s, FFTSample_fix *output,$/;"	f
+imdct_half	wma_mdct_fix.h	/^    void (*imdct_half)(struct MDCTContext_fix *s, FFTSample_fix *output,$/;"	m	struct:MDCTContext_fix
+imdct_half_fix_c	wma_mdct_fix.c	/^void imdct_half_fix_c(MDCTContext_fix *s, FFTSample_fix *output,$/;"	f
+imfix	wma_wmafixed.h	/^    int refix, imfix;$/;"	m	struct:FFTComplexFix
+index	wma_bitstream.h	/^    int index;$/;"	m	struct:GetBitContext
+init	wma_avcodec.h	/^    int (*init)(AVCodecContext *);$/;"	m	struct:AVCodec
+init_coef_vlc	wma_wmafix.c	/^static void init_coef_vlc(VLC *vlc,$/;"	f	file:
+init_get_bits	wma_bitstream.h	/^static void init_get_bits(GetBitContext *s, const uint8_t *buffer, int bit_size)$/;"	f
+init_vlc	wma_bitstream.c	/^int init_vlc(VLC *vlc, int nb_bits, int nb_codes, const void *bits, int bits_wrap, int bits_size, const void *codes, int codes_wrap, int codes_size, int use_static)$/;"	f
+inline	wma_common.h	5;"	d
+int16_t	wma_common.h	/^typedef signed short int16_t;$/;"	t
+int32_t	wma_common.h	/^typedef signed int int32_t;$/;"	t
+int8_t	wma_common.h	/^typedef signed char int8_t;$/;"	t
+int_table	wma_wmafixed.h	/^    uint16_t *int_table[2];$/;"	m	struct:WMACodecContext
+invalid_asf	wma_wav.c	/^    unsigned int invalid_asf;$/;"	m	struct:CodecTag	file:
+inverse	wma_fft_fix.h	/^    int inverse;$/;"	m	struct:FFTContext_fix
+inverse	wma_wmafixed.h	/^    int inverse;$/;"	m	struct:FFTContextFix
+last_bitoffset	wma_wmafixed.h	/^    int last_bitoffset;$/;"	m	struct:WMACodecContext
+last_static	wma_utils_codec.c	/^static unsigned int last_static = 0;$/;"	v	file:
+last_superframe	wma_wmafixed.h	/^    uint8_t last_superframe[MAX_CODED_SUPERFRAME_SIZE + 4]; \/* padding added *\/$/;"	m	struct:WMACodecContext
+last_superframe_len	wma_wmafixed.h	/^    int last_superframe_len;$/;"	m	struct:WMACodecContext
+level_table	wma_wmafixed.h	/^    uint16_t *level_table[2];$/;"	m	struct:WMACodecContext
+levels	wma_wmafixed.h	/^    const uint16_t *levels;     \/\/\/< table to build run\/level tables$/;"	m	struct:CoefVLCTable
+levels0	wma_wmadata.h	/^static const uint16_t levels0[60] = {$/;"	v
+levels1	wma_wmadata.h	/^static const uint16_t levels1[40] = {$/;"	v
+levels2	wma_wmadata.h	/^static const uint16_t levels2[340] = {$/;"	v
+levels3	wma_wmadata.h	/^static const uint16_t levels3[180] = {$/;"	v
+levels4	wma_wmadata.h	/^static const uint16_t levels4[70] = {$/;"	v
+levels5	wma_wmadata.h	/^static const uint16_t levels5[40] = {$/;"	v
+lspfix_cos_table	wma_wmafixed.h	/^    int lspfix_cos_table[BLOCK_MAX_SIZE];$/;"	m	struct:WMACodecContext
+lspfix_pow_e_table	wma_wmafixed.h	/^    int lspfix_pow_e_table[256];$/;"	m	struct:WMACodecContext
+lspfix_pow_m_table1	wma_wmafixed.h	/^    int lspfix_pow_m_table1[(1 << LSP_POW_BITS)];$/;"	m	struct:WMACodecContext
+lspfix_pow_m_table2	wma_wmafixed.h	/^    int lspfix_pow_m_table2[(1 << LSP_POW_BITS)];$/;"	m	struct:WMACodecContext
+main	wma_main.c	/^void main()$/;"	f
+max_exponent_fix	wma_wmafixed.h	/^    int max_exponent_fix[MAX_CHANNELS];$/;"	m	struct:WMACodecContext
+max_level	wma_wmafixed.h	/^    int max_level;$/;"	m	struct:CoefVLCTable
+mdct_calc	wma_mdct_fix.h	/^    void (*mdct_calc)(struct MDCTContext_fix *s, FFTSample_fix *output,$/;"	m	struct:MDCTContext_fix
+mdct_calc_fix	wma_mdct_fix.c	/^void mdct_calc_fix(MDCTContext_fix *s, FFTSample_fix *out,$/;"	f
+mdct_ctx	wma_wmafixed.h	/^    MDCTContextFix mdct_ctx[BLOCK_NB_SIZES];$/;"	m	struct:WMACodecContext
+mdct_end_fix	wma_mdct_fix.c	/^void mdct_end_fix(MDCTContext_fix *s)$/;"	f
+mdct_init_fix	wma_mdct_fix.c	/^int mdct_init_fix(MDCTContext_fix *s, int nbits, int inverse)$/;"	f
+ms_stereo	wma_wmafixed.h	/^    uint8_t ms_stereo;                      \/\/\/< true if mid\/side stereo mode$/;"	m	struct:WMACodecContext
+n	wma_mdct_fix.h	/^    int n;  \/* size of MDCT (i.e. number of input data * 2) *\/$/;"	m	struct:MDCTContext_fix
+n	wma_wmafixed.h	/^    int n;                      \/\/\/< total number of codes$/;"	m	struct:CoefVLCTable
+n	wma_wmafixed.h	/^    int n;  \/* size of MDCT (i.e. number of input data * 2) *\/$/;"	m	struct:MDCTContextFix
+name	wma_avcodec.h	/^    const char *name;$/;"	m	struct:AVCodec
+nb_block_sizes	wma_wmafixed.h	/^    int nb_block_sizes;                     \/\/\/< number of block sizes$/;"	m	struct:WMACodecContext
+nb_channels	wma_wmafixed.h	/^    int nb_channels;$/;"	m	struct:WMACodecContext
+nbits	wma_fft_fix.h	/^    int nbits;$/;"	m	struct:FFTContext_fix
+nbits	wma_mdct_fix.h	/^    int nbits; \/* n = 2^nbits *\/$/;"	m	struct:MDCTContext_fix
+nbits	wma_wmafixed.h	/^    int nbits; \/* n = 2^nbits *\/$/;"	m	struct:MDCTContextFix
+nbits	wma_wmafixed.h	/^    int nbits;$/;"	m	struct:FFTContextFix
+next	wma_avcodec.h	/^    struct AVCodec *next;$/;"	m	struct:AVCodec	typeref:struct:AVCodec::AVCodec
+next_block_len_bits	wma_wmafixed.h	/^    int next_block_len_bits;                \/\/\/< log2 of next block length$/;"	m	struct:WMACodecContext
+noise_index	wma_wmafixed.h	/^    int noise_index;$/;"	m	struct:WMACodecContext
+noise_mult_fix	wma_wmafixed.h	/^    int noise_mult_fix; \/* XXX: suppress that and integrate it in the noise array *\/$/;"	m	struct:WMACodecContext
+noise_table_fix	wma_wmafixed.h	/^    int noise_table_fix[NOISE_TAB_SIZE];$/;"	m	struct:WMACodecContext
+parser	wma_avcodec.h	/^    struct AVCodecParser *parser;$/;"	m	struct:AVCodecParserContext	typeref:struct:AVCodecParserContext::AVCodecParser
+pow_m1_4	wma_wmadecfix.c	/^static inline float pow_m1_4(WMACodecContext *s, float x)$/;"	f	file:
+prev_block_len_bits	wma_wmafixed.h	/^    int prev_block_len_bits;                \/\/\/< log2 of prev block length$/;"	m	struct:WMACodecContext
+printf	wma_wmadecfix.c	23;"	d	file:
+priv_data	wma_avcodec.h	/^    void *priv_data;$/;"	m	struct:AVCodecContext
+priv_data_size	wma_avcodec.h	/^    int priv_data_size;$/;"	m	struct:AVCodec
+re	wma_fft_fix.h	/^    FFTSample_fix re, im;$/;"	m	struct:FFTComplex_fix
+refix	wma_wmafixed.h	/^    int refix, imfix;$/;"	m	struct:FFTComplexFix
+register_avcodec	wma_utils_codec.c	/^void register_avcodec(AVCodec *format)$/;"	f
+reset_block_lengths	wma_wmafixed.h	/^    int reset_block_lengths;$/;"	m	struct:WMACodecContext
+revtab	wma_fft_fix.h	/^    unsigned short *revtab;$/;"	m	struct:FFTContext_fix
+revtab	wma_wmafixed.h	/^    uint16_t *revtab;$/;"	m	struct:FFTContextFix
+run_table	wma_wmafixed.h	/^    uint16_t *run_table[2];$/;"	m	struct:WMACodecContext
+sample_rate	wma_avcodec.h	/^    int sample_rate; \/\/\/< samples per sec$/;"	m	struct:AVCodecContext
+sample_rate	wma_wmafixed.h	/^    int sample_rate;$/;"	m	struct:WMACodecContext
+show_bits	wma_bitstream.h	/^static inline unsigned int show_bits(GetBitContext *s, int n)$/;"	f
+show_bits_long	wma_bitstream.c	/^unsigned int show_bits_long(GetBitContext *s, int n)$/;"	f
+skip_bits	wma_bitstream.h	/^static inline void skip_bits(GetBitContext *s, int n)$/;"	f
+split	wma_avcodec.h	/^    int (*split)(AVCodecContext *avctx, const uint8_t *buf, int buf_size);$/;"	m	struct:AVCodecParser
+sqrtint	wma_wmadecfix.c	/^int sqrtint (int a)$/;"	f
+table	wma_bitstream.h	/^    VLC_TYPE(*table)[2]; \/\/\/< code, bits$/;"	m	struct:VLC
+table_allocated	wma_bitstream.h	/^    int table_size, table_allocated;$/;"	m	struct:VLC
+table_fixpow10	wma_wmadecfix.c	/^int table_fixpow10[5][16] = {$/;"	v
+table_size	wma_bitstream.h	/^    int table_size, table_allocated;$/;"	m	struct:VLC
+tablefix_10exp1div16	wma_wmadecfix.c	/^int tablefix_10exp1div16[64] = {$/;"	v
+tag	wma_wav.c	/^    unsigned int tag;$/;"	m	struct:CodecTag	file:
+tcos	wma_mdct_fix.h	/^    FFTSample_fix *tcos;$/;"	m	struct:MDCTContext_fix
+tcosfix	wma_wmafixed.h	/^    int *tcosfix;$/;"	m	struct:MDCTContextFix
+tsin	wma_mdct_fix.h	/^    FFTSample_fix *tsin;$/;"	m	struct:MDCTContext_fix
+tsinfix	wma_wmafixed.h	/^    int *tsinfix;$/;"	m	struct:MDCTContextFix
+type	wma_avcodec.h	/^    enum CodecType type;$/;"	m	struct:AVCodec	typeref:enum:AVCodec::CodecType
+uint16_t	wma_common.h	/^typedef unsigned short uint16_t;$/;"	t
+uint32_t	wma_common.h	/^typedef unsigned int uint32_t;$/;"	t
+uint8_t	wma_common.h	/^typedef unsigned char uint8_t;$/;"	t
+unaligned32_be	wma_bitstream.h	/^static inline int unaligned32_be(const void *v)$/;"	f
+unaligned32_le	wma_bitstream.h	/^static inline int unaligned32_le(const void *v)$/;"	f
+use_bit_reservoir	wma_wmafixed.h	/^    int use_bit_reservoir;$/;"	m	struct:WMACodecContext
+use_exp_vlc	wma_wmafixed.h	/^    int use_exp_vlc;                        \/\/\/< exponent coding: 0 = lsp, 1 = vlc + delta$/;"	m	struct:WMACodecContext
+use_noise_coding	wma_wmafixed.h	/^    int use_noise_coding;                   \/\/\/< true if perceptual noise is added$/;"	m	struct:WMACodecContext
+use_variable_block_len	wma_wmafixed.h	/^    int use_variable_block_len;$/;"	m	struct:WMACodecContext
+version	wma_wmafixed.h	/^    int version;                            \/\/\/< 1 = 0x160 (WMAV1), 2 = 0x161 (WMAV2)$/;"	m	struct:WMACodecContext
+wav_codec_get_id	wma_wav.c	/^int wav_codec_get_id(unsigned int tag, int bps)$/;"	f
+width	wma_avcodec.h	/^    int width, height;$/;"	m	struct:AVCodecContext
+windowsfix	wma_wmafixed.h	/^    int *windowsfix[BLOCK_NB_SIZES];$/;"	m	struct:WMACodecContext
+wma_critical_freqs	wma_wmadata.h	/^static const uint16_t wma_critical_freqs[25] = {$/;"	v
+wma_decode_block	wma_wmadecfix.c	/^static int wma_decode_block(WMACodecContext *s)$/;"	f	file:
+wma_decode_frame	wma_wmadecfix.c	/^static int wma_decode_frame(WMACodecContext *s, int16_t *samples)$/;"	f	file:
+wma_decode_init	wma_wmadecfix.c	/^static int wma_decode_init(AVCodecContext * avctx)$/;"	f	file:
+wma_decode_superframe	wma_wmadecfix.c	/^static int wma_decode_superframe(AVCodecContext *avctx,$/;"	f	file:
+wma_lsp_to_curve	wma_wmadecfix.c	/^static void wma_lsp_to_curve(WMACodecContext *s,$/;"	f	file:
+wma_lsp_to_curve_init	wma_wmadecfix.c	/^static void wma_lsp_to_curve_init(WMACodecContext *s, int frame_len)$/;"	f	file:
+wma_window	wma_wmadecfix.c	/^static void wma_window(WMACodecContext *s, int *outfix)$/;"	f	file:
+wmav1_decoder	wma_wmadecfix.c	/^AVCodec wmav1_decoder =$/;"	v
+wmav2_decoder	wma_wmadecfix.c	/^AVCodec wmav2_decoder =$/;"	v
